@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/songListFragment">
+
+    <fragment
+        android:id="@+id/songListFragment"
+        android:name="project.mr.chordify.presentation.ui.song_list.SongListFragment"
+        android:label="SongListFragment">
+        <action
+            android:id="@+id/viewSong"
+            app:destination="@id/songFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/songFragment"
+        android:name="project.mr.chordify.presentation.ui.song.SongFragment"
+        android:label="SongFragment">
+    </fragment>
+</navigation>
