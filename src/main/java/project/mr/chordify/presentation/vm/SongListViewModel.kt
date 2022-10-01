@@ -1,7 +1,5 @@
 package project.mr.chordify.presentation.vm
 
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -9,11 +7,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import project.mr.chordify.model.APIResponse
 import project.mr.chordify.model.Song
-import project.mr.chordify.presentation.vm.SongEvent.*
+import project.mr.chordify.presentation.vm.RestApiEvents.*
 import project.mr.chordify.repository.Repository
 import javax.inject.Inject
 
@@ -42,12 +38,12 @@ class SongListViewModel @Inject constructor(
 //        }
     }
 
-    fun onTriggerEvent(event: SongEvent) {
+    fun onTriggerEvent(event: RestApiEvents) {
         try {
             viewModelScope.launch {
                 isLoading.value = true
                 when(event){
-                    is NewSongsSearchEvent -> {
+                    is SearchSongsEvent -> {
 //                        setQuery(event.query)
                         searchSongs()
                     }

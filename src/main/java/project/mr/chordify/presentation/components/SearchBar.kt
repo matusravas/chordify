@@ -3,6 +3,7 @@ package project.mr.chordify.presentation.components
 
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -32,6 +33,7 @@ fun SearchBar(
     onQueryChanged: (query: String) -> Unit,
     onSubmitSearch: () -> Unit
 ) {
+    Log.d("RECOMPOSE", "SEARCH_BAR")
     val keyboardController = LocalSoftwareKeyboardController.current
     Surface(
         modifier = Modifier
@@ -50,7 +52,7 @@ fun SearchBar(
                     onValueChange = {
                         onQueryChanged(it)
                         handler.removeCallbacksAndMessages(RUNNABLE_DELAYED_SEARCH_TOKEN)
-                        handler.postDelayed(Runnable{onSubmitSearch()}, RUNNABLE_DELAYED_SEARCH_TOKEN, 1500)
+                        handler.postDelayed(Runnable{onSubmitSearch()}, RUNNABLE_DELAYED_SEARCH_TOKEN, 500)
                                     },
                     label = { Text(text = "Search") },
                     keyboardOptions = KeyboardOptions(

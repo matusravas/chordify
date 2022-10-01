@@ -1,5 +1,6 @@
 package project.mr.chordify.presentation.components
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,6 +19,7 @@ fun SongList(
 //    onItemClick: (event: String) -> Unit
     onItemClick: (song: Song) -> Unit
 ) {
+    Log.d("RECOMPOSE", "SONG_LIST")
     Box(modifier = Modifier.background(MaterialTheme.colors.surface)){
 //        if(isLoading && songs.isEmpty()){
 //            HorizontalDottedProgressBar()

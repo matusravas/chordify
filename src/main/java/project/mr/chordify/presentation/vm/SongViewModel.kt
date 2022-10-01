@@ -9,7 +9,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import project.mr.chordify.model.Song
-import project.mr.chordify.presentation.vm.SongEvent.*
+import project.mr.chordify.presentation.vm.RestApiEvents.*
 import project.mr.chordify.repository.Repository
 import javax.inject.Inject
 
@@ -31,12 +31,12 @@ class SongViewModel @Inject constructor(
 //        }
     }
 
-    fun onTriggerEvent(event: SongEvent) {
+    fun onTriggerEvent(event: RestApiEvents) {
         try {
             viewModelScope.launch {
                 isLoading.value = true
                 when(event) {
-                    is NewSongChordsSearchEvent -> {
+                    is SearchChordsEvent -> {
                         song.value = event.song
                         searchSongChords(event.song.chordsLink)
                     }

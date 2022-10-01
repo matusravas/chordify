@@ -13,7 +13,7 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import project.mr.chordify.model.Song
 import project.mr.chordify.presentation.BaseApplication
-import project.mr.chordify.presentation.vm.SongEvent.NewSongChordsSearchEvent
+import project.mr.chordify.presentation.vm.RestApiEvents.SearchChordsEvent
 import project.mr.chordify.presentation.vm.SongViewModel
 import project.mr.chordify.ui.theme.ChordifyTheme
 import javax.inject.Inject
@@ -31,7 +31,7 @@ class SongFragment: Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.getParcelable<Song>("song")?.let{
-            viewmodel.onTriggerEvent(NewSongChordsSearchEvent(it))
+            viewmodel.onTriggerEvent(SearchChordsEvent(it))
         }
     }
 

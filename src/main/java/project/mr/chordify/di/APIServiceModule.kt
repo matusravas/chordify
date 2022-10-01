@@ -15,7 +15,8 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object APIServiceModule {
-    private const val BASE_URL = "http://10.0.2.2:5000/"
+//    private const val BASE_URL = "http://10.0.2.2:5000/"
+    private const val BASE_URL = "https://chordify-ws.herokuapp.com/"
 //    private const val BASE_URL = "http://192.168.0.104:5000/"
 
     @Singleton
