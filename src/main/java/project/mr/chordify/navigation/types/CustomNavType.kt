@@ -3,7 +3,7 @@ package project.mr.chordify.navigation.types
 import android.os.Bundle
 import androidx.navigation.NavType
 import com.google.gson.Gson
-import project.mr.chordify.model.Song
+import project.mr.chordify.model.api.Song
 
 class CustomNavType: NavType<Song>(isNullableAllowed = false) {
     override fun get(bundle: Bundle, key: String): Song? {

@@ -16,32 +16,33 @@ import androidx.compose.ui.graphics.Color
 import project.mr.chordify.presentation.components.HorizontalDottedProgressBar
 
 private val LightThemeColors = lightColors(
-    primary = Blue600,
-    primaryVariant = Blue400,
-    onPrimary = Black2,
-    secondary = Color.White,
-    secondaryVariant = Teal300,
-    onSecondary = Color.Black,
-    error = RedErrorDark,
-    onError = RedErrorLight,
-    background = Grey1,
-    onBackground = Color.Black,
-    surface = Color.White,
-    onSurface = Color.Black,
+
+//    primary = Color(0xFF455A64),
+//    primaryVariant = Color(0xFF607D8B),
+//    onPrimary = Color(0xFFF7FFFE),
+//    secondary = Color(0x74E57373),
+//    secondaryVariant = Color(0xFF009688),
+//    onSecondary = Color.Black,
+//    error = RedErrorDark,
+//    onError = RedErrorLight,
+//    background = Grey1,
+//    onBackground = Color.Black,
+//    surface = Color.White,
+//    onSurface = Color.Black,
 )
 
-private val DarkThemeColors = darkColors(
-    primary = Blue700,
-    primaryVariant = Color.White,
-    onPrimary = Color.White,
-    secondary = Black1,
-    onSecondary = Color.White,
-    error = RedErrorLight,
-    background = Color.Black,
-    onBackground = Color.White,
-    surface = Black1,
-    onSurface = Color.White,
-)
+//private val DarkThemeColors = darkColors(
+//    primary = Blue700,
+//    primaryVariant = Color.White,
+//    onPrimary = Color.White,
+//    secondary = Black1,
+//    onSecondary = Color.White,
+//    error = RedErrorLight,
+//    background = Color.Black,
+//    onBackground = Color.White,
+//    surface = Black1,
+//    onSurface = Color.White,
+//)
 
     /* Other default colors to override
     background = Color.White,
@@ -54,23 +55,23 @@ private val DarkThemeColors = darkColors(
 
 @Composable
 fun ChordifyTheme(darkTheme: Boolean = isSystemInDarkTheme(),
-                  isLoading: Boolean,
                   scaffoldState: ScaffoldState,
                   content: @Composable () -> Unit
 ) {
-
+//    Log.d("MAIN", isLoading.toString())
     MaterialTheme(
-        colors = if(darkTheme) DarkThemeColors else LightThemeColors,
+//        colors = if(darkTheme) DarkThemeColors else LightThemeColors,
+        colors = LightThemeColors,
         typography = Typography,
         shapes = Shapes
     ){
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(color = if(!darkTheme) Grey1 else Color.Black)
+                .background(color = if(!darkTheme) Color.White else Color.Black)
         ){
             content()
-            if(isLoading) HorizontalDottedProgressBar() //else content()
+             //else content()
 //            DefaultSnackbar(
 //                snackbarHostState = scaffoldState.snackbarHostState,
 //                onDismiss = {

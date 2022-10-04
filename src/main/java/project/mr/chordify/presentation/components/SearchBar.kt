@@ -17,10 +17,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 const val RUNNABLE_DELAYED_SEARCH_TOKEN = 5
@@ -34,11 +36,11 @@ fun SearchBar(
     onSubmitSearch: () -> Unit
 ) {
     Log.d("RECOMPOSE", "SEARCH_BAR")
-    val keyboardController = LocalSoftwareKeyboardController.current
+//    val keyboardController = LocalSoftwareKeyboardController.current
     Surface(
         modifier = Modifier
             .fillMaxWidth(),
-        color = MaterialTheme.colors.secondary,
+        color = Color.White,
         elevation = 8.dp,
     ) {
         Column {
@@ -62,7 +64,7 @@ fun SearchBar(
                     keyboardActions = KeyboardActions(
                         onDone = {
 //                            onSubmitSearch()
-                            keyboardController?.hide()
+//                            keyboardController?.hide()
                         },
                     ),
                     leadingIcon = { Icon(Icons.Filled.Search, contentDescription = "Search Icon")},

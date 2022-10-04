@@ -1,4 +1,4 @@
-package project.mr.chordify.model
+package project.mr.chordify.model.api
 
 //<T : Any> means T must not be null, plain <T> means that it can be nullable (which is represented by Any?)
 sealed class APIResponse<T : Any> {

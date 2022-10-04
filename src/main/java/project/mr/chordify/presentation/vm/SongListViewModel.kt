@@ -8,10 +8,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import project.mr.chordify.model.Song
+import project.mr.chordify.model.api.Song
 import project.mr.chordify.presentation.vm.RestApiEvents.*
-import project.mr.chordify.repository.Repository
+import project.mr.chordify.repository.api.RepositoryAPI
+import project.mr.chordify.repository.db.RepositoryDB
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 
 const val STATE_SEARCH_QUERY = "song.state.query_search"
@@ -20,12 +23,15 @@ val TAG = SongListViewModel::class.qualifiedName
 
 @HiltViewModel
 class SongListViewModel @Inject constructor(
-    private val repository: Repository,
+//    private val appViewModel: AppViewModel,
+    private val repositoryAPI: RepositoryAPI,
+    private val repositoryDB: RepositoryDB,
+//    songsDao: SongsDao,
     private val savedStateHandle: SavedStateHandle
 ): ViewModel(){
 
-    val isLoading: MutableState<Boolean> = mutableStateOf(false)
-
+//    val isLoading: MutableState<Boolean> = mutableStateOf(false)
+//    val repo = Repository_DB_Impl(songsDao = songsDao)
     val query: MutableState<String> = mutableStateOf("")
     val type: MutableState<Int> = mutableStateOf(300)
     val sortOrder: MutableState<String> = mutableStateOf("desc")
@@ -41,7 +47,9 @@ class SongListViewModel @Inject constructor(
     fun onTriggerEvent(event: RestApiEvents) {
         try {
             viewModelScope.launch {
-                isLoading.value = true
+//                isLoading.value = true
+//                appViewModel.setIsLoading(true)
+//                Log.d("COMON", appViewModel.isLoading.value.toString())
                 when(event){
                     is SearchSongsEvent -> {
 //                        setQuery(event.query)
@@ -51,7 +59,8 @@ class SongListViewModel @Inject constructor(
                         Log.d(TAG, "Event not found")
                     }
                 }
-                isLoading.value = false
+//                appViewModel.setIsLoading(false)
+//                isLoading.value = false
             }
 
         }
@@ -62,10 +71,21 @@ class SongListViewModel @Inject constructor(
     }
 
     private suspend fun searchSongs() {
-        val result = repository.getSongs(query.value, type.value, sortOrder.value, page.value)
+        val result = repositoryAPI.getSongs(query.value, type.value, sortOrder.value, page.value)
         searchedSongsList.value = if (result.ok) result.data else emptyList()
-        for (song in searchedSongsList.value){
-            Log.d(TAG, "artist: ${song.artist}, song: ${song.name} votes: ${song.meta.votes}")
+//        for (song in searchedSongsList.value){
+//            Log.d(TAG, "artist: ${song.artist}, song: ${song.name} votes: ${song.meta.votes}")
+//        }
+    }
+
+    fun insertSongToPlaylist(song: project.mr.chordify.model.entities.Song){
+        viewModelScope.launch {
+            val id = repositoryDB.saveSong(song)
+            Log.d("INSERT", id.toString())
+            val result = repositoryDB.saveSongToPlaylist(id, 1, Date().time)
+            Log.d("INSERT", result.toString())
+            val result1 = repositoryDB.getLastViewedSong()
+            Log.d("LAST_SAVED", result1.name)
         }
     }
 

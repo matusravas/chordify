@@ -6,7 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import project.mr.chordify.api.APIService
-import project.mr.chordify.repository.Repository
+import project.mr.chordify.api.interceptors.TokenInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -16,13 +16,14 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object APIServiceModule {
 //    private const val BASE_URL = "http://10.0.2.2:5000/"
-    private const val BASE_URL = "https://chordify-ws.herokuapp.com/"
+    private const val BASE_URL = "https://chordify-ws.herokuapp.com/api/"
 //    private const val BASE_URL = "http://192.168.0.104:5000/"
 
     @Singleton
     @Provides
     fun provideHttpClient(): OkHttpClient = OkHttpClient.Builder()
         .connectTimeout(1, TimeUnit.MINUTES)
+        .addInterceptor(TokenInterceptor())
         .readTimeout(15, TimeUnit.SECONDS)
         .writeTimeout(15, TimeUnit.SECONDS)
         .build()
@@ -35,5 +36,4 @@ object APIServiceModule {
         .client(okHttpClient)
         .build()
         .create(APIService::class.java)
-
 }

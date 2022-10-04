@@ -11,9 +11,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import project.mr.chordify.model.Song
 import project.mr.chordify.presentation.BaseApplication
-import project.mr.chordify.presentation.vm.RestApiEvents.SearchChordsEvent
 import project.mr.chordify.presentation.vm.SongViewModel
 import project.mr.chordify.ui.theme.ChordifyTheme
 import javax.inject.Inject
@@ -23,16 +21,16 @@ val TAG = SongFragment::class.simpleName
 @AndroidEntryPoint
 class SongFragment: Fragment() {
 
-    @Inject
-    lateinit var application: BaseApplication
+//    @Inject
+//    lateinit var application: BaseApplication
 
     private val viewmodel: SongViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.getParcelable<Song>("song")?.let{
-            viewmodel.onTriggerEvent(SearchChordsEvent(it))
-        }
+//        arguments?.getParcelable<Song>("song")?.let{
+//            viewmodel.onTriggerEvent(SearchChordsEvent(it))
+//        }
     }
 
     override fun onCreateView(
@@ -45,7 +43,7 @@ class SongFragment: Fragment() {
                 val songChords = viewmodel.songChords.value
                 val scaffoldState = rememberScaffoldState()
                 ChordifyTheme(
-                    isLoading = viewmodel.isLoading.value,
+//                    isLoading = viewmodel.isLoading.value,
                     scaffoldState = scaffoldState
                 ) {
                     Scaffold(

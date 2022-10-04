@@ -8,15 +8,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import project.mr.chordify.model.Song
+import project.mr.chordify.model.api.Song
 import project.mr.chordify.presentation.vm.RestApiEvents.*
-import project.mr.chordify.repository.Repository
+import project.mr.chordify.repository.api.RepositoryAPI
 import javax.inject.Inject
 
 
 @HiltViewModel
 class SongViewModel @Inject constructor(
-    private val repository: Repository,
+    private val repository: RepositoryAPI,
     private val savedStateHandle: SavedStateHandle
 ): ViewModel(){
 
@@ -37,8 +37,7 @@ class SongViewModel @Inject constructor(
                 isLoading.value = true
                 when(event) {
                     is SearchChordsEvent -> {
-                        song.value = event.song
-                        searchSongChords(event.song.chordsLink)
+                        searchSongChords(event.chordsLink)
                     }
                     else -> {
                         Log.d(TAG, "Event not found")
@@ -54,6 +53,7 @@ class SongViewModel @Inject constructor(
 
     private suspend fun searchSongChords(chordsLink: String) {
         val result = repository.getChords(chordsLink)
-        songChords.value = result.data
+        song.value = result.data.song
+        songChords.value = result.data.chords
     }
 }
