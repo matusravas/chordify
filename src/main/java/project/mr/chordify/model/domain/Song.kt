@@ -1,21 +1,12 @@
-package project.mr.chordify.model.api
+package project.mr.chordify.model.domain
 
-import android.os.Parcelable
-import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
-
-
-@Parcelize
 data class Song(
-    @SerializedName("artist")
+    val id: Long? = null,
     val artist: String,
-    @SerializedName("song")
     val name: String,
-    @SerializedName("full_url")
+    var isFavorite: Boolean = false,
     val fullUrl: String,
-    @SerializedName("chords_link")
     val chordsLink: String,
-    @SerializedName("meta")
-    val meta: Meta
-
-): Parcelable
+    val timestampLastViewed: Long? = null,
+    val meta: SongMetadata
+)

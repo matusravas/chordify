@@ -3,10 +3,9 @@ package project.mr.chordify.model.entities
 import project.mr.chordify.model.domain.DomainMapper
 import project.mr.chordify.model.domain.Playlist
 import project.mr.chordify.model.entities.Playlist as PlaylistDto
-import project.mr.chordify.model.domain.SongMetadata
 import java.util.*
 
-class PlaylistMapper: DomainMapper<PlaylistDto, Playlist>{
+class PlaylistMapperDb: DomainMapper<PlaylistDto, Playlist>{
 
     override fun mapToDomainModel(m: PlaylistDto): Playlist {
         return Playlist(

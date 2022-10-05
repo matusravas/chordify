@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class SongMetadata(
+data class SongMetadataDto(
     @SerializedName("votes")
     val votes: Int,
     @SerializedName("rating")

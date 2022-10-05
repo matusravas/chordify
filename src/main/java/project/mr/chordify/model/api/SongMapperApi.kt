@@ -4,7 +4,7 @@ import project.mr.chordify.model.domain.DomainMapper
 import project.mr.chordify.model.domain.Song
 import project.mr.chordify.model.domain.SongMetadata
 
-class SongMapper: DomainMapper<SongDto, Song>{
+class SongMapperApi: DomainMapper<SongDto, Song>{
 
     override fun mapToDomainModel(m: SongDto): Song {
         return Song(
@@ -36,7 +36,7 @@ class SongMapper: DomainMapper<SongDto, Song>{
             )
         )
     }
-    
+
     fun toDomainList(list: List<SongDto>) = list.map { mapToDomainModel(it) }
 
     fun fromDomainList(list: List<Song>) = list.map { mapFromDomainModel(it) }

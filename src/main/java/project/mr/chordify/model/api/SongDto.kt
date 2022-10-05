@@ -6,7 +6,9 @@ import kotlinx.parcelize.Parcelize
 
 
 @Parcelize
-data class Song(
+data class SongDto(
+//    @SerializedName("id")
+//    val id: Int,
     @SerializedName("artist")
     val artist: String,
     @SerializedName("song")
@@ -16,6 +18,6 @@ data class Song(
     @SerializedName("chords_link")
     val chordsLink: String,
     @SerializedName("meta")
-    val meta: SongMetadata
+    val meta: SongMetadataDto
 
 ): Parcelable

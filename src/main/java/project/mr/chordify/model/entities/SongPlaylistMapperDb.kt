@@ -1,10 +1,5 @@
 package project.mr.chordify.model.entities
 
-import project.mr.chordify.model.domain.DomainMapper
-import project.mr.chordify.model.domain.SongPlaylist
-import project.mr.chordify.model.entities.SongPlaylist as SongPlaylistDto
-import java.util.*
-
 //class SongPlaylistMapper: DomainMapper<SongPlaylistDto, SongPlaylist>{
 //
 //    override fun mapToDomainModel(m: SongPlaylistDto): SongPlaylist {

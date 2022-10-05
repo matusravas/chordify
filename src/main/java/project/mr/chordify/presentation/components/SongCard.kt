@@ -7,9 +7,10 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
-import androidx.compose.material.icons.outlined.Home
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.SpanStyle
@@ -17,7 +18,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import project.mr.chordify.model.api.Song
+import project.mr.chordify.model.domain.Song
 
 @Composable
 fun SongCard(index: Int, song: Song, onSongCardClick: ()-> Unit, onAddToFavoritesClick: ()-> Unit) {
@@ -46,7 +47,9 @@ fun SongCard(index: Int, song: Song, onSongCardClick: ()-> Unit, onAddToFavorite
 //                Icon(Icons.Outlined.Favorite,null)
             }
             Column(Modifier.weight(1f), horizontalAlignment = Alignment.End) {
-                Icon(Icons.Outlined.FavoriteBorder,"Add to favorites",
+                Icon(
+                    imageVector = if(song.isFavorite) Icons.Outlined.Favorite else Icons.Outlined.FavoriteBorder,
+                        "Add to favorites",
                     tint = MaterialTheme.colors.secondary,
                     modifier = Modifier.clickable { onAddToFavoritesClick() } )
             }

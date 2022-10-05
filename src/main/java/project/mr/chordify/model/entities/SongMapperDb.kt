@@ -6,7 +6,7 @@ import project.mr.chordify.model.entities.Song as SongDto
 import project.mr.chordify.model.domain.SongMetadata
 import java.util.*
 
-class SongMapper: DomainMapper<SongDto, Song>{
+class SongMapperDb: DomainMapper<SongDto, Song>{
 
     override fun mapToDomainModel(m: SongDto): Song {
         return Song(
@@ -31,7 +31,7 @@ class SongMapper: DomainMapper<SongDto, Song>{
             name = m.name,
             chordsLink = m.chordsLink,
             fullUrl = m.fullUrl,
-            timestampLastViewed = Date().time,
+            timestampLastViewed = m.timestampLastViewed,
             votes = m.meta.votes,
             rating = m.meta.rating,
             score = m.meta.score

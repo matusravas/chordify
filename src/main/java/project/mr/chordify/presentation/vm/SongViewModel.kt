@@ -8,21 +8,21 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import project.mr.chordify.model.api.Song
+import project.mr.chordify.model.api.SongDto
 import project.mr.chordify.presentation.vm.RestApiEvents.*
-import project.mr.chordify.repository.api.RepositoryAPI
+import project.mr.chordify.repository.Repository
 import javax.inject.Inject
 
 
 @HiltViewModel
 class SongViewModel @Inject constructor(
-    private val repository: RepositoryAPI,
+    private val repository: Repository,
     private val savedStateHandle: SavedStateHandle
 ): ViewModel(){
 
     val isLoading: MutableState<Boolean> = mutableStateOf(false)
 
-    val song: MutableState<Song?> = mutableStateOf(null)
+    val song: MutableState<SongDto?> = mutableStateOf(null)
     val songChords: MutableState<String?> = mutableStateOf(null)
 
     init {
@@ -52,8 +52,8 @@ class SongViewModel @Inject constructor(
     }
 
     private suspend fun searchSongChords(chordsLink: String) {
-        val result = repository.getChords(chordsLink)
-        song.value = result.data.song
-        songChords.value = result.data.chords
+//        val result = repository.getChords(chordsLink)
+//        song.value = result.data.song
+//        songChords.value = result.data.chords
     }
 }

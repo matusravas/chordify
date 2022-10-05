@@ -1,33 +1,34 @@
 package project.mr.chordify.di
 
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
 import project.mr.chordify.api.APIService
-import project.mr.chordify.database.daos.SongsDao
-import project.mr.chordify.repository.api.RepositoryAPI
-import project.mr.chordify.repository.api.RepositoryAPI_Impl
-import project.mr.chordify.repository.db.RepositoryDB
-import project.mr.chordify.repository.db.Repository_DB_Impl
+import project.mr.chordify.database.daos.Dao
+import project.mr.chordify.model.api.SongMapperApi
+import project.mr.chordify.model.entities.PlaylistMapperDb
+import project.mr.chordify.model.entities.SongMapperDb
+import project.mr.chordify.repository.Repository
+import project.mr.chordify.repository.Repository_Impl
 
 
 @Module
 @InstallIn(ViewModelComponent::class)
 object RepositoryModule {
 
-
     @ViewModelScoped
     @Provides
-    fun provideAPIRepository(apiService: APIService): RepositoryAPI {
-        return RepositoryAPI_Impl(apiService = apiService)
-    }
-
-    @ViewModelScoped
-    @Provides
-    fun provideDBRepository(songsDao: SongsDao): RepositoryDB {
-        return Repository_DB_Impl(songsDao = songsDao)
+    fun provideRepository(apiService: APIService, dao: Dao,
+                          songMapperApi: SongMapperApi,
+                          songMapperDb: SongMapperDb,
+                          playlistMapperDb: PlaylistMapperDb): Repository {
+        return Repository_Impl(
+            apiService = apiService,
+            dao = dao,
+            songMapperApi = songMapperApi,
+            songMapperDb = songMapperDb,
+            playlistMapperDb = playlistMapperDb)
     }
 }

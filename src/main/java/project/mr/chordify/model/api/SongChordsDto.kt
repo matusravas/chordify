@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class SongChords(
+data class SongChordsDto(
     val chords: String,
     val song: SongDto
 ): Parcelable

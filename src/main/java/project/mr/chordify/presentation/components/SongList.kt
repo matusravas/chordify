@@ -8,7 +8,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import project.mr.chordify.model.api.Song
+import project.mr.chordify.model.domain.Song
 
 
 @Composable

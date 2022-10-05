@@ -4,6 +4,7 @@ package project.mr.chordify.presentation.components
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,6 +13,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -36,25 +38,25 @@ fun SearchBar(
     onSubmitSearch: () -> Unit
 ) {
     Log.d("RECOMPOSE", "SEARCH_BAR")
-//    val keyboardController = LocalSoftwareKeyboardController.current
+    val keyboardController = LocalSoftwareKeyboardController.current
     Surface(
         modifier = Modifier
             .fillMaxWidth(),
         color = Color.White,
-        elevation = 8.dp,
+        elevation = 12.dp,
     ) {
-        Column {
+//        Column {
             Row(modifier = Modifier.fillMaxWidth()) {
 
                 TextField(
                     modifier = Modifier
-                        .fillMaxWidth(.9f)
+                        .fillMaxWidth()
                         .padding(8.dp),
                     value = query,
                     onValueChange = {
                         onQueryChanged(it)
                         handler.removeCallbacksAndMessages(RUNNABLE_DELAYED_SEARCH_TOKEN)
-                        handler.postDelayed(Runnable{onSubmitSearch()}, RUNNABLE_DELAYED_SEARCH_TOKEN, 500)
+                        handler.postDelayed({onSubmitSearch()}, RUNNABLE_DELAYED_SEARCH_TOKEN, 800)
                                     },
                     label = { Text(text = "Search") },
                     keyboardOptions = KeyboardOptions(
@@ -63,15 +65,24 @@ fun SearchBar(
                     ),
                     keyboardActions = KeyboardActions(
                         onDone = {
-//                            onSubmitSearch()
-//                            keyboardController?.hide()
+                            onSubmitSearch()
+                            keyboardController?.hide()
                         },
                     ),
                     leadingIcon = { Icon(Icons.Filled.Search, contentDescription = "Search Icon")},
+                    trailingIcon = {
+                        if(query.isNotEmpty()) {Icon(
+                        Icons.Filled.Clear,
+                        contentDescription = "Clear Icon",
+                        modifier = Modifier.clickable {
+                            onQueryChanged("")
+                            onSubmitSearch()
+                        }
+                    )}},
                     textStyle = TextStyle(color = MaterialTheme.colors.onSurface),
                     colors = TextFieldDefaults.textFieldColors(backgroundColor = MaterialTheme.colors.surface),
                 )
             }
-        }
+//        }
     }
 }

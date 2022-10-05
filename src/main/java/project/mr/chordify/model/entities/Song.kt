@@ -2,9 +2,10 @@ package project.mr.chordify.model.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "song")
+@Entity(tableName = "song", indices = [Index(value = ["chords_link"])])
 data class Song(
     @PrimaryKey(autoGenerate = true)
     val id: Long? = null,
@@ -23,5 +24,5 @@ data class Song(
     @ColumnInfo(name="score")
     val score: Float = votes * rating,
     @ColumnInfo(name="timestamp_last_viewed")
-    val lastViewedTimestamp: Long? = null
+    val timestampLastViewed: Long? = null
 )

@@ -5,10 +5,10 @@ import androidx.room.Insert
 import androidx.room.Query
 import project.mr.chordify.model.entities.Playlist
 import project.mr.chordify.model.entities.Song
-import project.mr.chordify.model.pojo.LastViewedSong
+import project.mr.chordify.model.domain.pojo.LastViewedSong
 
 @Dao
-interface SongsDao {
+interface Dao {
 
     @Insert
     suspend fun insertSong(song: Song): Long
@@ -24,6 +24,19 @@ interface SongsDao {
 
     @Query("SELECT song.*, song_playlist.playlist_id, song_playlist.timestamp_added FROM song_playlist INNER JOIN song ON song_playlist.song_id = song.id WHERE song_playlist.playlist_id=:playlistId")
     suspend fun getAllSongsForPlaylist(playlistId: Long): List<Song>
+
+    @Query("SELECT song.*, song_playlist.playlist_id, song_playlist.timestamp_added FROM song_playlist INNER JOIN song ON song_playlist.song_id = song.id WHERE song_playlist.playlist_id=:playlistId")
+    suspend fun getAllFavouritesSongs(playlistId: Long): List<Song>
+
+//    @Query("SELECT s.* FROM song as s INNER JOIN song_playlist as sp ON sp.song_id = s.id WHERE s.id IN (:songIds) AND sp.playlist_id = :playlistId")
+//    @Query("SELECT CASE WHEN EXISTS (SELECT * FROM song_playlist WHERE playlist_id = :playlistId AND song_id IN (SELECT id FROM song as s WHERE chords_link IN (:songIds) ) THEN 1 ELSE 0 END")
+//    suspend fun checkIfListOfSongsIsInPlaylistBySongIds(songIds: List<Long>, playlistId: Long): List<Int>
+//    suspend fun checkIfListOfSongsIsInPlaylistBySongIds(songIds: List<Long>, playlistId: Long): List<Song>
+
+    @Query("SELECT s.* FROM song as s INNER JOIN song_playlist as sp ON sp.song_id = s.id WHERE s.chords_link IN (:chordsLinks) AND sp.playlist_id = :playlistId")
+//    @Query("SELECT CASE WHEN EXISTS (SELECT * FROM song_playlist WHERE  = ) THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT) END")
+//    @Query("SELECT CASE WHEN EXISTS (SELECT * FROM song_playlist WHERE playlist_id = :playlistId AND song_id IN (SELECT id FROM song WHERE chords_link IN (:chordsLinks) )) THEN 1 ELSE 0 END")
+    suspend fun checkIfListOfSongsIsInPlaylistByChordsLink(chordsLinks: List<String>, playlistId: Long): List<Song>
 
     @Query("SELECT * FROM playlist")
     suspend fun getAllPlaylists(): List<Playlist>
