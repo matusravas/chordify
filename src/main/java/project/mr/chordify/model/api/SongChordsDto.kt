@@ -6,5 +6,5 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class SongChords(
     val chords: String,
-    val song: Song
+    val song: SongDto
 ): Parcelable

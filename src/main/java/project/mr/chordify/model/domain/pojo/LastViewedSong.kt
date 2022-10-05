@@ -1,4 +1,4 @@
-package project.mr.chordify.model.pojo
+package project.mr.chordify.model.entities.pojo
 
 data class LastViewedSong(
     val artist: String,
